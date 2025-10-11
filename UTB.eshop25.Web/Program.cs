@@ -1,7 +1,15 @@
+using Microsoft.EntityFrameworkCore;
+using UTB.eshop25.Infrastructure.Database;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+var connectionString = builder.Configuration.GetConnectionString("MySQL");
+ServerVersion serverVersion = new MySqlServerVersion("8.0.29");
+
+builder.Services.AddDbContext<EshopDbContext>(options => options.UseMySql(connectionString, serverVersion));
 
 var app = builder.Build();
 
