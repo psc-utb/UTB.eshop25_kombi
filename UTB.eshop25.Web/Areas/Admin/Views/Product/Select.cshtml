@@ -4,6 +4,8 @@
 }
 <h1>@ViewData["Title"]</h1>
 
+<a asp-action="Create">Create</a>
+
 @if (Model != null && Model.Count > 0)
 {
 
@@ -15,6 +17,7 @@
                 <th scope="col">Description</th>
                 <th scope="col">Price</th>
                 <th scope="col">Image Source</th>
+                <th scope="col">Delete</th>
             </tr>
         </thead>
         <tbody>
@@ -27,6 +30,7 @@
                     <td>@Model[i].Description</td>
                     <td>@Model[i].Price</td>
                     <td>@Model[i].ImageSrc</td>
+                    <td><a asp-action="Delete" asp-route-id="@Model[i].Id" onclick="return ConfirmDelete();" class="text-danger">X</a></td>
                 </tr>
             }
 
@@ -36,4 +40,9 @@
 else
 {
     <p>Product table is empty!</p>
+}
+
+@section Scripts
+{
+    <script src="~/js/dialogs.js"></script>
 }

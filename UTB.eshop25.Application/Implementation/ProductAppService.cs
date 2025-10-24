@@ -17,9 +17,33 @@ namespace UTB.eshop25.Application.Implementation
             _dbContext = dbContext;
         }
 
+
         public IList<Product> SelectAll()
         {
             return _dbContext.Products.ToList();
+        }
+
+        public void Create(Product product)
+        {
+            _dbContext.Products.Add(product);
+            _dbContext.SaveChanges();
+        }
+
+        public Product? Select(int id)
+        {
+            return _dbContext.Products.FirstOrDefault(product => product.Id == id);
+        }
+
+        public bool Delete(int id)
+        {
+            Product? product = Select(id);
+            if (product != null)
+            {
+                _dbContext.Products.Remove(product);
+                _dbContext.SaveChanges();
+                return true;
+            }
+            return false;
         }
     }
 }

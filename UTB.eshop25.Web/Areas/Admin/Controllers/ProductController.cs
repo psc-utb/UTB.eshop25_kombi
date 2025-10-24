@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using UTB.eshop25.Application.Abstraction;
+using UTB.eshop25.Domain.Entities;
 
 namespace UTB.eshop25.Web.Areas.Admin.Controllers
 {
@@ -16,6 +17,29 @@ namespace UTB.eshop25.Web.Areas.Admin.Controllers
         {
             var products = _productAppService.SelectAll();
             return View(products);
+        }
+
+        [HttpGet]
+        public IActionResult Create()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult Create(Product product)
+        {
+            _productAppService.Create(product);
+            return RedirectToAction(nameof(Select));
+        }
+
+        public IActionResult Delete(int id)
+        {
+            bool deleted = _productAppService.Delete(id);
+            if (deleted)
+            {
+                return RedirectToAction(nameof(Select));
+            }
+            return NotFound();
         }
     }
 }

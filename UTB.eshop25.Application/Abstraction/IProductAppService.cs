@@ -10,5 +10,7 @@ namespace UTB.eshop25.Application.Abstraction
     public interface IProductAppService
     {
         IList<Product> SelectAll();
+        void Create(Product product);
+        bool Delete(int id);
     }
 }
