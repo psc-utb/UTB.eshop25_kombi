@@ -28,8 +28,12 @@ namespace UTB.eshop25.Web.Areas.Admin.Controllers
         [HttpPost]
         public IActionResult Create(Product product)
         {
-            _productAppService.Create(product);
-            return RedirectToAction(nameof(Select));
+            if (ModelState.IsValid)
+            {
+                _productAppService.Create(product);
+                return RedirectToAction(nameof(Select));
+            }
+            return View(product);
         }
 
         public IActionResult Delete(int id)
